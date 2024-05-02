@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe</title>
+    <style>
+        .board {
+            display: grid;
+            grid-template-columns: repeat(3, 100px); /* 3 columns each 100px wide */
+            grid-template-rows: repeat(3, 100px); /* 3 rows each 100px high */
+            gap: 2px; /* gap between cells */
+        }
+        .cell {
+            width: 100px; /* fixed width */
+            height: 100px; /* fixed height */
+            border: 1px solid black;
+            text-align: center;
+            line-height: 100px;
+            font-size: 3em;
+        }
+    </style>
+</head>
+<body>
+    <h1>TTT - Tic Tac Toe</h1>
+    <h2>Ostfalia Hochschule für angewandte Wissenschaften</h2>
+    <div class="board" id="board">
+        <!-- Dynamic generation of Tic Tac Toe cells will happen here -->
+    </div>
+
+    <script>
+        // Function to update the Tic Tac Toe board
+        async function updateBoard() {
+            try {
+                // Load the JSON file
+                const response = await fetch('spielfeld.json');
+                const boardData = await response.json();
+
+                // Generate the Tic Tac Toe board
+                const boardElement = document.getElementById("board");
+                boardElement.innerHTML = ""; // Clear the board
+                console.log(boardData)
+                boardData.forEach(function(rowData) {
+                    rowData.forEach(function(cell) {
+                        // Create cell and insert corresponding content
+                        const cellElement = document.createElement("div");
+                        cellElement.classList.add("cell");
+                        if (cell === 1) {
+                            cellElement.textContent = "X";
+                        } else if (cell === 2) {
+                            cellElement.textContent = "O"; // "O" for 2
+                        } else {
+                            cellElement.textContent = ""; // Empty cell for 0
+                        }
+                        boardElement.appendChild(cellElement);
+                    });
+                });
+            } catch (error) {
+                console.error('Error updating board:', error);
+            }
+        }
+
+        // Periodically update the board (every 10 seconds)
+        setInterval(updateBoard, 3000); // 10000 milliseconds = 10 seconds
+
+        // Initial update of the board on page load
+        window.onload = updateBoard;
+    </script>
+</body>
+</html>

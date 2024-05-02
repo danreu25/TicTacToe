@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Button Trigger</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+    <button id="startScriptBtn1" data-script="starte_neues_spiel.py">Neues Spiel</button>
+    <button id="startScriptBtn2" data-script="abbrechen.py">Abbrechen</button>
+    <button id="startScriptBtn" data-script="reset.py">Reset</button>
+
+    <script>
+        $(document).ready(function() {
+            $('button').click(function() {
+                var script = $(this).data('script');
+                $.ajax({
+                    type: "GET",
+                    url: "start_script.php",
+                    data: { script: script }, // Send the script name as a parameter
+                    success: function(response) {
+                        console.log("Python script started successfully.");
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Error starting Python script:", error);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
