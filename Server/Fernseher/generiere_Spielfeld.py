@@ -10,7 +10,7 @@ def write_array_to_json(array, file_path):
 
 # Pfad zur JSON-Datei
 path = os.getcwd()
-json_file_path = path + '\Server\Fernseher\spielfeld.json'
+json_file_path = path + '\Server\Fernseher\spielbrett.json'
 
 while True:
     # Zufälliges Array mit Zahlen von 0 bis 2 generieren
